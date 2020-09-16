@@ -1,11 +1,7 @@
 <template>
   <div class="title">
-    <h1>后台首页</h1>
-    <div id="ccc">
-      <p>11111</p>
-    </div>
     <v-chart class="box" :options="t1data" />
-    <v-chart class="box" :options="t2data" />
+    <!-- <v-chart class="box" :options="t2data" /> -->
   </div>
 </template>
 <script>
@@ -49,28 +45,28 @@ let t1data = {
   ],
 };
 
-let t2data = {
-  xAxis: {
-    type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  },
-  yAxis: {
-    type: "value",
-  },
-  series: [
-    {
-      // data: [120, 200, 150, 80, 70, 110, 130],
-      data: [],
-      type: "bar",
-    },
-  ],
-};
+// let t2data = {
+//   xAxis: {
+//     type: "category",
+//     data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+//   },
+//   yAxis: {
+//     type: "value",
+//   },
+//   series: [
+//     {
+//       // data: [120, 200, 150, 80, 70, 110, 130],
+//       data: [],
+//       type: "bar",
+//     },
+//   ],
+// };
 
 export default {
   data() {
     return {
       t1data: t1data,
-      t2data: {},
+      // t2data: {},
     };
   },
   created() {
@@ -82,8 +78,8 @@ export default {
         { value: 135, name: "视频广告", itemStyle: { color: "blue" } },
         { value: 1548, name: "搜索引擎", itemStyle: { color: "green" } },
       ];
-      t2data.series[0].data = [120, 200, 150, 80, 70, 110, 130];
-      this.t2data = t2data;
+      // t2data.series[0].data = [120, 200, 150, 80, 70, 110, 130];
+      // this.t2data = t2data;
     }, 3000);
   },
   methods: {},
@@ -114,21 +110,5 @@ $w = 510px;
   display: inline-block;
   background-color: #fff;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
-}
-
-.title {
-  border: 2px solid blue;
-
-  h1 {
-    color: blue;
-  }
-
-  #ccc {
-    background: blue;
-
-    p {
-      color: pink;
-    }
-  }
 }
 </style>
