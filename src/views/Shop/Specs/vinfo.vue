@@ -94,6 +94,7 @@ export default {
             this.$message.success(res.msg);
             this.info.isShow = false;
             this.get_specs_list(); // 重新获取角色列表！
+            console.log(this.forminfo);
             this.cancel();
           } else {
             this.$message.error(res.msg);

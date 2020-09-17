@@ -34,7 +34,11 @@ export default {
         // 请求商品列表的数据！
         async get_goods_list({ commit, state, dispatch }) {
             let res = await getGoods(state.page, state.size);
+            res.forEach(val => {
+                val.specsattr = val.specsattr ? val.specsattr.split(",") : []
+            })
             commit('SET_LIST', res)
+
             // 请求数量
             dispatch('get_goods_total')
         },

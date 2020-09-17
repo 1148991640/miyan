@@ -11,7 +11,7 @@ $axios.interceptors.request.use(function (config) {
     return config;
   } else {
     let userinfo = JSON.parse(localStorage.getItem("userinfo"))
-    console.log(config)
+    // console.log(config)
     // 请求头里面携带上token!   具体的字段名要和后端沟通！
     config.headers.authorization = userinfo.token;
     return config;

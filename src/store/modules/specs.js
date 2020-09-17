@@ -18,6 +18,7 @@ export default {
     },
     mutations: {
         SET_LIST(state, data) {
+            // console.log(data);
             state.specslist = data;
         },
         SET_PAGE(state, data) {

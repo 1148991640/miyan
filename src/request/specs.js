@@ -12,6 +12,7 @@ export async function getSpecs(page = 1, size = 10) {
     })
     if (res.code == 200 && res.list) {
         return res.list
+
     } else {
         return [];
     }

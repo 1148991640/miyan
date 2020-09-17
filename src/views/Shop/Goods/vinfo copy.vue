@@ -43,7 +43,7 @@
               </el-form-item>
               <el-form-item label="规格值">
                 <el-select v-model="forminfo.specsattr" multiple placeholder="请选择">
-                  <el-option v-for="item in attrslist" :key="item" :label="item" :value="item">
+                  <el-option v-for="item in attrslist" :key="item.id" :label="item.specsname" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -202,10 +202,9 @@ export default {
         this.$refs.wangeditor.setHtml(val.description);
       });
       defaultItem = { ...val };
-
-      this.forminfo = { ...val };
-
-      console.log(this.forminfo);
+      let a = { ...defaultItem };
+      // let a = { ...val };
+      this.forminfo = { ...a };
     },
     async sumbit() {
       return;
