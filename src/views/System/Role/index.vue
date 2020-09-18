@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button type="primary" @click="add" class="addm">添加菜单</el-button>
+    <el-button type="primary" @click="add" class="addm">添加角色</el-button>
     <v-list @edit="edit"></v-list>
     <v-info :info="info" ref="dialog"></v-info>
   </div>
