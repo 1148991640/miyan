@@ -7,17 +7,12 @@
           <el-row>
             <el-col :span="12" :offset="5">
               <el-form-item label="活动名称" prop="title">
-                <el-input v-model="forminfo.goodsname" placeholder="请输入活动名称"></el-input>
+                <el-input v-model="forminfo.title" placeholder="请输入活动名称"></el-input>
               </el-form-item>
-
-              <!--  -->
-
               <el-form-item label="活动时间">
-                <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+                <el-date-picker v-model="value1" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
-
-              <!--  -->
               <el-form-item label="一级分类">
                 <el-select v-model="forminfo.first_cateid" @change="topChange" placeholder="请选择">
                   <el-option v-for="item in catelist" :key="item.id" :label="item.catename" :value="item.id">
@@ -57,21 +52,19 @@
   </el-dialog>
 </template>
 <script>
-import { addGoods, editGoods } from "@/request/goods";
+import { editSeck, delSeck } from "@/request/seck";
 import { mapGetters, mapActions } from "vuex";
 let defaultItem = {
+  id: "",
   first_cateid: "",
   second_cateid: "",
-  goodsname: "",
-  price: "",
-  market_price: "",
-  img: "",
-  description: "",
-  specsid: "",
-  specsattr: "",
-  isnaw: 2,
-  ishot: 2,
+  goodsid: "",
+  title: "",
+  begintime: "",
+  endtime: "",
   status: 1, // 状态1正常2禁用
+  value1: "",
+  value2: "",
 };
 let resetItem = { ...defaultItem };
 export default {
@@ -82,7 +75,6 @@ export default {
         return {
           isAdd: true,
           isShow: false,
-          cs: "13",
         };
       },
     },
@@ -98,45 +90,37 @@ export default {
       filelist: [],
       activeName: "first",
       secondlist: [],
-      attrslist: [],
-      value1: "",
+      // value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+      value1: [],
       value2: "",
     };
   },
   computed: {
     ...mapGetters({
       catelist: "category/catelist",
-      specslist: "specs/specslist",
       goodslist: "goods/goodslist",
+      secklist: "seck/secklist",
     }),
   },
   mounted() {
     if (!this.catelist.length) {
       this.get_category_list();
     }
-    if (!this.specslist.length) {
-      this.get_specs_list();
-    }
     if (!this.goodslist.length) {
       this.get_goods_list();
+    }
+    if (!this.secklist.length) {
+      this.get_seck_list();
     }
   },
   methods: {
     ...mapActions({
       get_category_list: "category/get_category_list",
-      get_specs_list: "specs/get_specs_list",
       get_goods_list: "goods/get_goods_list",
+      get_seck_list: "seck/get_seck_list",
     }),
     see(file) {
       this.dialogVisible = true;
-      this.dialogImageUrl = file.url;
-      console.log(file);
-    },
-    change(file, fileList) {
-      this.forminfo.img = file.raw;
-    },
-    remove(file, fileList) {
-      this.forminfo.img = "";
     },
     topChange(id) {
       (this.secondlist = []), (this.forminfo.second_cateid = "");
@@ -146,42 +130,15 @@ export default {
         }
       });
     },
-    specsChange(id) {
-      this.attrslist = [];
-      this.specslist.forEach((val) => {
-        if (val.id == id) {
-          this.attrslist = val.attrs;
-          console.log("-------------");
-          console.log(this.attrslist);
-        }
-      });
-    },
     setinfo(val) {
-      if (val.img) {
-        this.filelist = [
-          {
-            name: val.catename,
-            url: this.$host + val.img,
-          },
-        ];
-      }
       val.children ? delete val.children : "";
-      this.topChange(val.filelist_cateid);
-      this.specsChange(val.specsid);
+      this.topChange(val.first_cateid);
       "firstcatename" in val ? delete val.firstcatename : "";
       "secondcatename" in val ? delete val.secondcatename : "";
-      this.$nextTick(() => {
-        this.$refs.wangeditor.setHtml(val.description);
-      });
       defaultItem = { ...val };
-
       this.forminfo = { ...val };
-
-      console.log(this.forminfo);
     },
     async sumbit() {
-      return;
-      this.forminfo.description = this.$refs.wangeditor.getHtml();
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           // 如果验证通过！
@@ -192,14 +149,15 @@ export default {
           }
           if (this.info.isAdd) {
             // 添加还是修改！
-            res = await addGoods(fd);
+            res = await editSeck(fd);
           } else {
-            res = await editGoods(fd);
+            res = await delSeck(fd);
           }
+          console.log(res);
           if (res.code == 200) {
             this.$message.success(res.msg);
             this.info.isShow = false;
-            this.get_specs_list(); // 重新获取角色列表！
+            this.get_seck_list(); // 重新获取秒杀列表！
             this.cancel();
           } else {
             this.$message.error(res.msg);
@@ -219,7 +177,6 @@ export default {
     cancel() {
       this.forminfo = { ...resetItem };
       this.filelist = [];
-      this.$refs.wangeditor.setHtml("");
     },
   },
   components: {},

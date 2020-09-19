@@ -116,7 +116,6 @@ export default {
         return {
           isAdd: true,
           isShow: false,
-          cs: "13",
         };
       },
     },
@@ -158,7 +157,6 @@ export default {
     see(file) {
       this.dialogVisible = true;
       this.dialogImageUrl = file.url;
-      console.log(file);
     },
     change(file, fileList) {
       this.forminfo.img = file.raw;
@@ -167,7 +165,8 @@ export default {
       this.forminfo.img = "";
     },
     topChange(id) {
-      (this.secondlist = []), (this.forminfo.second_cateid = "");
+      this.secondlist = [];
+      this.forminfo.second_cateid = "";
       this.catelist.forEach((val) => {
         if (val.id == id) {
           this.secondlist = val.children;
@@ -179,8 +178,6 @@ export default {
       this.specslist.forEach((val) => {
         if (val.id == id) {
           this.attrslist = val.attrs;
-          console.log("-------------");
-          console.log(this.attrslist);
         }
       });
     },
@@ -194,7 +191,7 @@ export default {
         ];
       }
       val.children ? delete val.children : "";
-      this.topChange(val.filelist_cateid);
+      this.topChange(val.first_cateid);
       this.specsChange(val.specsid);
       "firstcatename" in val ? delete val.firstcatename : "";
       "secondcatename" in val ? delete val.secondcatename : "";
@@ -202,10 +199,7 @@ export default {
         this.$refs.wangeditor.setHtml(val.description);
       });
       defaultItem = { ...val };
-
       this.forminfo = { ...val };
-
-      console.log(this.forminfo);
     },
     async sumbit() {
       return;

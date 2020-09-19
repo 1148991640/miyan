@@ -21,24 +21,19 @@ export async function getSeck(page = 1, size = 10) {
  * @param {*} data  添加的数据
  */
 export function addSeck(data) {
-  return $axios.post("/secksadd", data);
+  return $axios.post("/seckadd", data);
 }
 /**
  * 修改规格
  * @param {*} data  修改的数据
  */
 export function editSeck(data) {
-  return $axios.post("/secksedit", data);
+  return $axios.post("/seckedit", data);
 }
 /**
  * 删除规格
  * @param {*} uid  删除的id
  */
 export function delSeck(id) {
-  return $axios.post("/secksdelete", { id });
-}
-// 获取管理个数
-export async function getTotal() {
-  let res = await $axios.get("/seckscount");
-  return res.list[0].total;
+  return $axios.post("/seckdelete", { id });
 }

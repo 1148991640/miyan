@@ -1,7 +1,10 @@
 <template>
   <div class="table-bg">
     <el-table :data="secklist">
-      <el-table-column prop="title" label="活动名称" align="center"></el-table-column>
+      <el-table-column prop="title" label="活动名称" align="center" width="80"></el-table-column>
+      <!-- <el-table-column prop="firstcatename" label="一级分类" align="center" width="100"></el-table-column>
+      <el-table-column prop="secondcatename" label="二级分类" align="center" width="100"></el-table-column>
+      <el-table-column prop="goodsname" label="商品名称" align="center" width="100"></el-table-column> -->
       <el-table-column label="开始时间" align="center">
         <template slot-scope="scope">
           {{scope.row.begintime|pixTime}}
@@ -12,13 +15,13 @@
           {{scope.row.endtime|pixTime}}
         </template>
       </el-table-column>
-      <el-table-column label="状态">
+      <el-table-column label="状态" align="center">
         <template slot-scope="scope">
           <el-tag type="success" v-if="scope.row.status==1">启用</el-tag>
           <el-tag type="danger" v-if="scope.row.status==2">禁用</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="修改" width="100">
+      <el-table-column label="修改" width="100" align="center">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="edit(scope.row)" circle icon="el-icon-edit"></el-button>
           <el-button type="danger" size="small" @click="del(scope.row.id)" circle icon="el-icon-delete"></el-button>
@@ -28,7 +31,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { delSeck } from "@/request/seck";
 export default {
   data() {
@@ -38,9 +41,7 @@ export default {
     ...mapGetters({
       secklist: "seck/secklist",
       specslist: "specs/specslist",
-      page: "seck/page",
-      size: "seck/size",
-      total: "seck/total",
+      goodslist: "goods/goodslist",
     }),
   },
   mounted() {
@@ -50,19 +51,17 @@ export default {
     if (!this.specslist.length) {
       this.get_specs_list();
     }
+    if (!this.goodslist.length) {
+      this.get_goods_list();
+    }
   },
   methods: {
-    ...mapMutations({
-      SET_PAGE: "seck/SET_PAGE",
-    }),
     ...mapActions({
       get_seck_list: "seck/get_seck_list",
       get_specs_list: "specs/get_specs_list",
-      set_page: "seck/set_page",
-      set_size: "seck/set_size",
+      get_goods_list: "goods/get_goods_list",
     }),
     edit(val) {
-      console.log(this.secklist);
       this.$emit("edit", { ...val });
     },
     async del(id) {
@@ -75,9 +74,6 @@ export default {
           let res = await delseck(id);
           if (res.code == 200) {
             this.$message.success(res.msg);
-            if (this.specslist.length == 1 && this.page != 1) {
-              this.SET_PAGE(this.page - 1);
-            }
             this.get_seck_list(); // 重新获取列表！
           } else {
             this.$message.error(res.msg);
