@@ -1,19 +1,42 @@
 <template>
-  <div>会员管理</div>
+  <div>
+    <!-- 列表组件 -->
+    <v-list @edit="edit"></v-list>
+    <!-- 添加/修改组件 -->
+    <v-info :info="info" ref="dialog"></v-info>
+  </div>
 </template>
-
 <script>
+import VList from "./vlist";
+import VInfo from "./vinfo";
 export default {
-  props: [],
   data() {
-    return {};
+    return {
+      info: {
+        // 这是组件的info变量！
+        isAdd: false,
+        isShow: false,
+      },
+      list: [],
+    };
   },
-  created() {},
-  mounted() {},
-  components: {},
-  methods: {},
+  methods: {
+    edit(val) {
+      this.info.isAdd = false;
+      this.info.isShow = true;
+      // 调用弹框组件的setinfo方法！
+      this.$refs.dialog.setinfo(val);
+    },
+  },
+  components: {
+    VList,
+    VInfo,
+  },
 };
 </script>
-
 <style scoped>
+.addm {
+  float: left;
+  margin: 0 0 15px 0;
+}
 </style>
