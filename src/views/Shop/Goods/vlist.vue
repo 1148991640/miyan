@@ -96,7 +96,7 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          let res = await delgoods(id);
+          let res = await delGoods(id);
           if (res.code == 200) {
             this.$message.success(res.msg);
             if (this.specslist.length == 1 && this.page != 1) {

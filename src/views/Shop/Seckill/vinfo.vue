@@ -14,13 +14,13 @@
                 </el-date-picker>
               </el-form-item>
               <el-form-item label="一级分类">
-                <el-select v-model="forminfo.first_cateid" @change="topChange" placeholder="请选择">
+                <el-select v-model="forminfo.first_cateid" @change="oneChange" placeholder="请选择">
                   <el-option v-for="item in catelist" :key="item.id" :label="item.catename" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="二级分类">
-                <el-select v-model="forminfo.second_cateid" placeholder="请选择">
+                <el-select v-model="forminfo.second_cateid" @change="twoChange" placeholder="请选择">
                   <el-option v-for="item in secondlist" :key="item.id" :label="item.catename" :value="item.id">
                   </el-option>
                 </el-select>
@@ -52,7 +52,7 @@
   </el-dialog>
 </template>
 <script>
-import { editSeck, delSeck } from "@/request/seck";
+import { editSeck, addSeck } from "@/request/seck";
 import { mapGetters, mapActions } from "vuex";
 let defaultItem = {
   id: "",
@@ -64,7 +64,6 @@ let defaultItem = {
   endtime: "",
   status: 1, // 状态1正常2禁用
   value1: "",
-  value2: "",
 };
 let resetItem = { ...defaultItem };
 export default {
@@ -90,9 +89,9 @@ export default {
       filelist: [],
       activeName: "first",
       secondlist: [],
+      thirdlist: [],
       // value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       value1: [],
-      value2: "",
     };
   },
   computed: {
@@ -122,42 +121,53 @@ export default {
     see(file) {
       this.dialogVisible = true;
     },
-    topChange(id) {
-      (this.secondlist = []), (this.forminfo.second_cateid = "");
+    oneChange(id) {
+      this.secondlist = [];
+      this.forminfo.second_cateid = "";
       this.catelist.forEach((val) => {
         if (val.id == id) {
           this.secondlist = val.children;
         }
       });
+      console.log(this.secondlist);
+    },
+    twoChange(id) {
+      this.thirdlist = [];
+      this.forminfo.goodsid = "";
+      this.goodslist.forEach((val) => {
+        if (val.id == id) {
+          this.thirdlist = val.children;
+        }
+      });
+      console.log(this.thirdlist);
     },
     setinfo(val) {
       val.children ? delete val.children : "";
-      this.topChange(val.first_cateid);
+      this.oneChange(val.first_cateid);
+      // this.twoChange(val.second_cateid);
       "firstcatename" in val ? delete val.firstcatename : "";
       "secondcatename" in val ? delete val.secondcatename : "";
+      // "goodsname" in val ? delete val.goodsname : "";
       defaultItem = { ...val };
       this.forminfo = { ...val };
     },
     async sumbit() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
-          // 如果验证通过！
           let res;
           let fd = new FormData();
           for (let k in this.forminfo) {
             fd.append(k, this.forminfo[k]);
           }
           if (this.info.isAdd) {
-            // 添加还是修改！
-            res = await editSeck(fd);
+            res = await addSeck(fd);
           } else {
-            res = await delSeck(fd);
+            res = await editSeck(fd);
           }
-          console.log(res);
           if (res.code == 200) {
             this.$message.success(res.msg);
             this.info.isShow = false;
-            this.get_seck_list(); // 重新获取秒杀列表！
+            this.get_seck_list();
             this.cancel();
           } else {
             this.$message.error(res.msg);

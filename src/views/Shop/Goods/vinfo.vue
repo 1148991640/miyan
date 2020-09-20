@@ -138,6 +138,7 @@ export default {
     ...mapGetters({
       catelist: "category/catelist",
       specslist: "specs/specslist",
+      goodslist: "goods/goodslist",
     }),
   },
   mounted() {
@@ -146,6 +147,9 @@ export default {
     }
     if (!this.specslist.length) {
       this.get_specs_list();
+    }
+    if (!this.goodslist.length) {
+      this.get_goods_list();
     }
   },
   methods: {
@@ -175,6 +179,7 @@ export default {
     },
     specsChange(id) {
       this.attrslist = [];
+      this.forminfo.specsattr = [];
       this.specslist.forEach((val) => {
         if (val.id == id) {
           this.attrslist = val.attrs;
@@ -202,12 +207,14 @@ export default {
       this.forminfo = { ...val };
     },
     async sumbit() {
-      return;
+      // 文章正文！
       this.forminfo.description = this.$refs.wangeditor.getHtml();
+      // 表单验证！
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           // 如果验证通过！
           let res;
+          // 提交FormData类型！
           let fd = new FormData();
           for (let k in this.forminfo) {
             fd.append(k, this.forminfo[k]);
@@ -221,7 +228,7 @@ export default {
           if (res.code == 200) {
             this.$message.success(res.msg);
             this.info.isShow = false;
-            this.get_specs_list(); // 重新获取角色列表！
+            this.get_goods_list(); // 再次获取列表，让仓库里面的数据是最新的！
             this.cancel();
           } else {
             this.$message.error(res.msg);
