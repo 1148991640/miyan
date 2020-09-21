@@ -10,7 +10,7 @@
                 <el-input v-model="forminfo.title" placeholder="请输入活动名称"></el-input>
               </el-form-item>
               <el-form-item label="活动时间">
-                <el-date-picker v-model="value1" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+                <el-date-picker v-model="forminfo.value1" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
               <el-form-item label="一级分类">
@@ -27,7 +27,7 @@
               </el-form-item>
               <el-form-item label="选择商品">
                 <el-select v-model="forminfo.goodsid" placeholder="请选择">
-                  <el-option v-for="item in goodslist" :key="item.id" :label="item.goodsname" :value="item.id">
+                  <el-option v-for="item in thirdlist" :key="item.goodsid" :label="item.goodsname" :value="item.goodsid">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -54,6 +54,7 @@
 <script>
 import { editSeck, addSeck } from "@/request/seck";
 import { mapGetters, mapActions } from "vuex";
+import vue from "Vue";
 let defaultItem = {
   id: "",
   first_cateid: "",
@@ -63,7 +64,7 @@ let defaultItem = {
   begintime: "",
   endtime: "",
   status: 1, // 状态1正常2禁用
-  value1: "",
+  value1: [],
 };
 let resetItem = { ...defaultItem };
 export default {
@@ -90,8 +91,6 @@ export default {
       activeName: "first",
       secondlist: [],
       thirdlist: [],
-      // value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-      value1: [],
     };
   },
   computed: {
@@ -129,40 +128,46 @@ export default {
           this.secondlist = val.children;
         }
       });
-      console.log(this.secondlist);
     },
     twoChange(id) {
+      let obj = {};
       this.thirdlist = [];
       this.forminfo.goodsid = "";
       this.goodslist.forEach((val) => {
-        if (val.id == id) {
-          this.thirdlist = val.children;
+        if (val.second_cateid == id) {
+          obj.goodsid = val.id;
+          obj.goodsname = val.goodsname;
+          this.thirdlist.push(obj);
+          this.forminfo.goodsid = this.thirdlist[0].goodsid;
         }
       });
-      console.log(this.thirdlist);
     },
     setinfo(val) {
       val.children ? delete val.children : "";
       this.oneChange(val.first_cateid);
-      // this.twoChange(val.second_cateid);
+      this.twoChange(val.second_cateid);
       "firstcatename" in val ? delete val.firstcatename : "";
       "secondcatename" in val ? delete val.secondcatename : "";
-      // "goodsname" in val ? delete val.goodsname : "";
+      "goodsname" in val ? delete val.goodsname : "";
       defaultItem = { ...val };
-      this.forminfo = { ...val };
+      this.forminfo = {
+        ...val,
+        value1: [Number(val.begintime), Number(val.endtime)],
+      };
     },
     async sumbit() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
+          this.forminfo.begintime =
+            new Date(this.forminfo.value1[0]).valueOf() + "";
+          this.forminfo.endtime =
+            new Date(this.forminfo.value1[1]).valueOf() + "";
+          this.forminfo.value1 ? delete this.forminfo.value1 : "";
           let res;
-          let fd = new FormData();
-          for (let k in this.forminfo) {
-            fd.append(k, this.forminfo[k]);
-          }
           if (this.info.isAdd) {
-            res = await addSeck(fd);
+            res = await addSeck(this.forminfo);
           } else {
-            res = await editSeck(fd);
+            res = await editSeck(this.forminfo);
           }
           if (res.code == 200) {
             this.$message.success(res.msg);
@@ -186,7 +191,6 @@ export default {
     },
     cancel() {
       this.forminfo = { ...resetItem };
-      this.filelist = [];
     },
   },
   components: {},

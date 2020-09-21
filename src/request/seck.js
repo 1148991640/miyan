@@ -28,6 +28,7 @@ export function addSeck(data) {
  * @param {*} data  修改的数据
  */
 export function editSeck(data) {
+  console.log(data);
   return $axios.post("/seckedit", data);
 }
 /**

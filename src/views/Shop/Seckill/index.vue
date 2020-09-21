@@ -24,6 +24,7 @@ export default {
   methods: {
     add() {
       this.info.isAdd = this.info.isShow = true;
+      this.$refs.dialog.cancel();
     },
     edit(val) {
       this.info.isAdd = false;

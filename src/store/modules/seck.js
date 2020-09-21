@@ -17,10 +17,7 @@ export default {
   actions: {
     // 请求秒杀列表的数据！
     async get_seck_list({ commit, state, dispatch }) {
-      let res = await getSeck(state.page, state.size);
-      res.forEach(val => {
-        val.specsattr = val.specsattr ? val.specsattr.split(",") : [];
-      });
+      let res = await getSeck();
       commit("SET_LIST", res);
     }
   }

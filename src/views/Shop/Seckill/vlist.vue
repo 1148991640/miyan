@@ -2,9 +2,13 @@
   <div class="table-bg">
     <el-table :data="secklist">
       <el-table-column prop="title" label="活动名称" align="center" width="80"></el-table-column>
-      <!-- <el-table-column prop="firstcatename" label="一级分类" align="center" width="100"></el-table-column>
-      <el-table-column prop="secondcatename" label="二级分类" align="center" width="100"></el-table-column>
-      <el-table-column prop="goodsname" label="商品名称" align="center" width="100"></el-table-column> -->
+      <el-table-column prop="goodsid" label="商品名称" align="center">
+        <template slot-scope="scope">
+          <el-tag v-for="(item,index) in goodslist" :key="index" v-if="scope.row.goodsid==item.id">
+            {{item.goodsname}}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="开始时间" align="center">
         <template slot-scope="scope">
           {{scope.row.begintime|pixTime}}
@@ -12,20 +16,20 @@
       </el-table-column>
       <el-table-column label="结束时间" align="center">
         <template slot-scope="scope">
-          {{scope.row.endtime|pixTime}}
-        </template>
+  {{scope.row.endtime|pixTime}}
+</template>
       </el-table-column>
       <el-table-column label="状态" align="center">
         <template slot-scope="scope">
-          <el-tag type="success" v-if="scope.row.status==1">启用</el-tag>
-          <el-tag type="danger" v-if="scope.row.status==2">禁用</el-tag>
-        </template>
+  <el-tag type="success" v-if="scope.row.status==1">启用</el-tag>
+  <el-tag type="danger" v-if="scope.row.status==2">禁用</el-tag>
+</template>
       </el-table-column>
       <el-table-column label="修改" width="100" align="center">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" @click="edit(scope.row)" circle icon="el-icon-edit"></el-button>
-          <el-button type="danger" size="small" @click="del(scope.row.id)" circle icon="el-icon-delete"></el-button>
-        </template>
+  <el-button type="primary" size="small" @click="edit(scope.row)" circle icon="el-icon-edit"></el-button>
+  <el-button type="danger" size="small" @click="del(scope.row.id)" circle icon="el-icon-delete"></el-button>
+</template>
       </el-table-column>
     </el-table>
   </div>
@@ -71,7 +75,7 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          let res = await delseck(id);
+          let res = await delSeck(id);
           if (res.code == 200) {
             this.$message.success(res.msg);
             this.get_seck_list(); // 重新获取列表！
