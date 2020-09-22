@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="reduce">－</button> {{num}}
+        <button @click="add">＋</button>
+        <hr>
+        <button @click="num--">－</button> {{num2}}
+        <button @click="num++">＋</button>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                num: 10,
+                num2: 10
+            },
+            methods: {
+                add() {
+                    this.num++;
+                },
+                reduce() {
+                    this.num--;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

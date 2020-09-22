@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{msg}}===<button @click="msg='中原一点红！'">修改msg</button></h1>
+        反向是：
+        <h2>{{msg.split("").reverse().join("")}}</h2>
+        <hr>
+        <h1>{{str}}</h1>
+        <button @click="str='笑傲江湖！'">修改str！</button>
+        <hr> {{haha()}}
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                msg: "天王盖地虎，小鸡炖蘑菇！",
+                num: 1
+            },
+            computed: {
+                str: function() {
+                    return this.msg.split("").reverse().join("")
+                }
+            },
+            methods: {
+                haha() {
+                    return this.msg.split("").reverse().join("")
+                }
+            }
+        })
+        console.log(app)
+    </script>
+</body>
+
+</html>

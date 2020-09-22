@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .item {
+            width: 340px;
+            border: 2px solid blue;
+            display: inline-block;
+        }
+        
+        .item h3 {
+            line-height: 40px;
+            background-color: orange;
+            padding: 0 10px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .item img {
+            height: 100px;
+            width: 100%;
+            display: block;
+            background-color: #eee;
+            margin-bottom: 20px;
+        }
+        
+        .item li {
+            margin-left: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        Vue.component('Item', {
+            template: `<div class="item">
+                <h3>
+                    <span>标题</span>
+                    <a href="">更多</a>
+                </h3>
+                <div class="content">
+                    <img src=""/>
+                    <ul>
+                        <li>123123123123</li>
+                        <li>123123123123</li>
+                        <li>123123123123</li>
+                        <li>123123123123</li>
+                        <li>123123123123</li>
+                        <li>123123123123</li>
+                    </ul>
+                </div>
+            </div>`
+        })
+
+        new Vue({
+            el: "#app",
+        })
+    </script>
+</body>
+
+</html>

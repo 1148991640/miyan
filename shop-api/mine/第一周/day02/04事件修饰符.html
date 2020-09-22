@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <a href="http://www.baidu.com"></a>
+        <input type="text" @keyup.enter="show">
+        <input type="text" @keyup.r="heihei">
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+                run() {
+                    alert('run')
+                },
+                show(ev) {
+                    console.log(ev.keyCode)
+                    console.log(ev.target.value)
+                    alert('我要去登录了!')
+                },
+                heihei(ev) {
+                    console.log(ev.keyCode)
+                    console.log(ev.target.value)
+                    alert('放大')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

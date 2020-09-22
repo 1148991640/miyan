@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01、vue基础使用</title>
+    <!-- 第1步：引入vue.js -->
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 第2步：创建一个容器元素 -->
+    <div id="app">
+        <h1>{{msg}}</h1>
+        <h3>{{str}}</h3>
+        <p>{{1+1}}</p>
+        <p>{{10>20?'哈哈':'呵呵'}}</p>
+        <p>{{arr}}</p>
+        <p>{{person}}</p>
+        <hr>
+        <h3>{{str}}</h3>
+        <h3>{{msg}}</h3>
+        <p>{{1+1}}</p>
+
+    </div>
+    <script>
+        console.log(Vue)
+            //第3步：实例化vue对象
+            //new Vue（配置对象）  //理论学习，基本都是在学习这个配置对象
+        let app = new Vue({
+            el: "#app", //作用范围
+            data: { //data是一个对象！作用范围内用到的数据！
+                msg: "你好啊",
+                str: "哈哈哈",
+                arr: [1, 2, 3, 4],
+                person: {
+                    name: "刘备",
+                    age: 25
+                }
+            }
+        })
+        console.log(app)
+        console.log(app.msg)
+        console.log(app.str)
+        console.log(app.person)
+            //data里面的属性（变量），最终都会变成这个Vue实例的属性
+        let as = setInterval(() => {
+            console.log(app.msg)
+            app.msg += "武哥你好！"
+            app.str += "哭"
+        }, 1000);
+        //data里面的数据一旦发生变化，模板里面就会自动更新！
+
+
+        //clearInterval(as)
+
+
+        //JSON.stringify()
+        //JSON.parse()
+
+        //data 里面的数据，可以直接在模板里面展示
+        //如何展示： {{ 变量 }}  插值表达式！
+    </script>
+</body>
+
+</html>

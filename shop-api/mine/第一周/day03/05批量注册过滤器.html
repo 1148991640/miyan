@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="app2"></div>
+
+    <script>
+        let utils = {
+            formateTime: function(timestemp) {
+                let d = new Date(timestemp);
+                return d.toLocaleString();
+            },
+            toFixed: function(val, n = 2) {
+                val = val * 1
+                if (isNaN(val)) {
+                    throw new Error('传入不是数字，传入的值是' + val)
+                } else {
+                    return val.toFixed(n)
+                }
+            }
+        }
+
+        for (let k in utils) {
+            Vue.filter(k, utils[k])
+        }
+
+        new Vue({
+            el: "#app",
+            data: {},
+        })
+    </script>
+</body>
+
+</html>

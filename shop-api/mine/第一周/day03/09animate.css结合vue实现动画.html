@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1">
+    <script src="./vue.js"></script>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="state=!state">切换！</button>
+        <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+            <div class="box" v-show="state"></div>
+        </transition>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                state: true
+            }
+        })
+    </script>
+</body>
+
+</html>

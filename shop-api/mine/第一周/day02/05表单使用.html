@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>05、表单使用</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>用户名：<input type="text" v-model="forminfo.username">{{forminfo.username}}</p>
+        <p>密码：<input type="text" v-model="forminfo.password">{{forminfo.password}}</p>
+        <p>性别：
+            <label><input type="radio"  value="1"  v-model="forminfo.sex" >男</label>
+            <label><input type="radio"  value="0" v-model="forminfo.sex" >女</label>
+            <label><input type="radio"  value="2"  v-model="forminfo.sex" >不方便</label> {{forminfo.sex}}
+        </p>
+        <p>爱好：
+            <label><input type="checkbox" value="wjj" v-model="forminfo.ah">挖掘机</label>
+            <label><input type="checkbox" value="dkc" v-model="forminfo.ah">大卡车</label>
+            <label><input type="checkbox" value="wjdc" v-model="forminfo.ah">玩具吊车</label>
+            <label><input type="checkbox" value="ljc" v-model="forminfo.ah">垃圾车</label>
+            <label><input type="checkbox" value="xjc" v-model="forminfo.ah">小轿车</label>
+            <label><input type="checkbox" value="xfc" v-model="forminfo.ah">消防车</label> {{forminfo.ah}}
+        </p>
+        <p>
+            是否同意播放汪汪队:
+            <input type="checkbox" v-model="forminfo.agree">{{forminfo.agree}}
+        </p>
+        <p>
+            家乡：
+            <select v-model="forminfo.city">
+                <option value="">==请选择==</option>
+                <option value="hn">湖南</option>
+                <option value="hb">河北</option>
+                <option value="sd">山东</option>
+                <option value="ah">安徽</option>
+                <option value="db">东北</option>
+            </select> {{forminfo.city}}
+
+        </p>
+        <p>
+            留言：
+            <textarea v-model="forminfo.notes"></textarea> {{forminfo.notes}}
+        </p>
+        {{forminfo}}
+        <br>
+        <button @click="reg">注册</button>
+        <button @click="reset">重置</button>
+    </div>
+</body>
+<script>
+    let defaultItem = {
+        username: "",
+        password: "",
+        sex: "0",
+        ah: [],
+        agree: false,
+        city: "",
+        notes: ""
+    }
+    new Vue({
+        el: "#app",
+        data: {
+            forminfo: Object.assign({}, defaultItem)
+        },
+        methods: {
+            reg() {
+                console.log(this.forminfo)
+            },
+            reset() {
+                this.forminfo = {...defaultItem
+                }
+            }
+        }
+    })
+
+    let obj = {
+        name: "张飞",
+        age: 20
+    }
+    let obj2 = obj;
+    obj2.age = 40;
+    console.log(obj)
+    console.log(obj2)
+
+    let num1 = 200;
+    let num2 = num1;
+    num2 = 500;
+    console.log(num1)
+    console.log(num2)
+
+
+    let obj3 = {
+        haha: 111,
+        heihei: 222
+    }
+    let obj4 = {...obj3
+    }
+
+
+    obj3.heihei = 44345345345
+    obj4.haha = 24234234234
+    console.log(obj3)
+    console.log(obj4)
+</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        <p v-once>{{msg}}</p>
+        <p v-html="msg" v-once></p>
+        <hr>
+        <button @click="haha">弹出来！</button>
+    </div>
+    <script>
+        let vm = new Vue({
+                el: "#app",
+                data: {
+                    msg: "送你小花花"
+                },
+                methods: {
+                    haha() {
+                        // console.log(this)
+                        this.msg = "送她大花花"
+                        this.hehe()
+                        alert('hahaha！')
+                    },
+                    hehe() {
+                        console.log("hehehehe!")
+                    }
+                }
+            })
+            // console.log(vm)
+            // console.log(vm.haha)
+        setInterval(() => {
+            vm.msg += '❀'
+        }, 100);
+    </script>
+</body>
+
+</html>

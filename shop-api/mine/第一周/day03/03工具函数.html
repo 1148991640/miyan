@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <script>
+        let utils = {
+            getStorage: function(key) {
+                return localStorage.getItem(key)
+            },
+            setStorage: function(key, val) {
+                localStorage.setItem(key, val)
+            },
+            delStorage: function(key) {
+                localStorage.removeItem(key)
+            },
+            formateTime: function(timestemp) {
+                let d = new Date(timestemp);
+                return d.toLocaleString();
+            },
+            toFixed: function(val, n = 2) {
+                val = val * 1;
+                if (isNaN(val)) {
+                    throw new Error('传入不是数字，传入的值是' + val)
+                } else {
+                    return val.toFixed(n)
+                }
+            }
+        }
+        utils.setStorage('hahah', 'herwerwer')
+        let tm = (new Date()).getTime();
+        let res = utils.formateTime(tm)
+        console.log(res)
+
+        console.log(utils.toFixed(243234, 3))
+        console.log(utils.toFixed("345.68678"))
+        console.log(utils.toFixed("aaaa", 1))
+    </script>
+</body>
+
+</html>

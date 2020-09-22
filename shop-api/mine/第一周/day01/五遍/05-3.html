@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .red {
+            background-color: red;
+            color: #fff;
+        }
+        
+        .green {
+            background-color: rgb(197, 231, 145);
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in list">{{item}}</li>
+        </ul>
+        <div>
+            <span v-for="val in person">{{val}}=====</span>
+        </div>
+        <hr>
+        <ul>
+            <li v-for="(item,index) in list">{{index}}==={{item}}</li>
+        </ul>
+        <div>
+            <span v-for="(val,key) in person">{{key}}=={{val}}=====</span>
+        </div>
+        <div>
+            <span v-for="(val,key,idx) in person">{{idx}}=={{key}}=={{val}}=====</span>
+        </div>
+        <hr>
+        <ul>
+            <li v-for="(item,index) in score">
+                <b>序号：{{index+1}}</b>
+                <span>姓名：{{item.name}}===</span>
+                <span>年龄：{{item.age}}</span>
+                <ul>
+                    <li v-for="(val,idx) in item.fs">
+                        <b>学科{{idx+1}}: {{val.type}}</b>
+                        <b>分数: {{val.num}}</b>
+                        <!-- <b v-if="val.num>=60" class="green">及格</b> -->
+                        <!-- <b v-else class="red">垃圾</b> -->
+                        <b :class="val.num>=60 ? 'green':'red'">{{ val.num >=60 ? '及格':'垃圾' }}</b>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                list: ['张三', '二蛋', '铁蛋', '翠花'],
+                person: {
+                    name: "老北京故事",
+                    desc: "这是很悠久的四合院里面的故事！"
+                },
+                score: [{
+                    name: "张三",
+                    age: 20,
+                    fs: [{
+                        type: "语文",
+                        num: 90
+                    }, {
+                        type: "数学",
+                        num: 40
+                    }, {
+                        type: "英语",
+                        num: 20
+                    }]
+                }, {
+                    name: "二麻子",
+                    age: 20,
+                    fs: [{
+                        type: "语文",
+                        num: 70
+                    }, {
+                        type: "数学",
+                        num: 60
+                    }, {
+                        type: "英语",
+                        num: 40
+                    }]
+                }, {
+                    name: "铁蛋",
+                    age: 20,
+                    fs: [{
+                        type: "语文",
+                        num: 50
+                    }, {
+                        type: "数学",
+                        num: 100
+                    }, {
+                        type: "英语",
+                        num: 80
+                    }]
+                }]
+            }
+        })
+    </script>
+</body>
+
+</html>

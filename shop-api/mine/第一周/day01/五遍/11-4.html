@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="12-4.html">跳转到12网页</a>
+    <script>
+        console.log(localStorage)
+        console.log(sessionStorage)
+            // setItem(key,value)  设置！  存储的都是字符串！ 默认执行toString方法！
+            // getItem(key)  取出！
+            // removeItem(key)  删除某一个！
+            // clear()  干掉所有！
+        localStorage.setItem('ok', 123123123123)
+            // localStorage.setItem('arr', [11, 22, 3, 445, 56])
+        localStorage.setItem('arr', JSON.stringify([11, 22, 3, 445, 56]))
+            // localStorage.setItem('person',{name:"二狗子",age:20})
+        localStorage.setItem('person', JSON.stringify({
+            name: "二狗子",
+            age: 20
+        }))
+
+        setTimeout(() => {
+            alert(localStorage.getItem('ok'))
+        }, 2000);
+
+        setTimeout(() => {
+            localStorage.removeItem('ok')
+        }, 3000);
+
+        // setTimeout(()=>{
+        //     localStorage.clear();
+        // },5000)
+    </script>
+</body>
+
+</html>

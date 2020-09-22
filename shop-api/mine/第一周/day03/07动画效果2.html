@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+            border: 2px solid blue;
+        }
+        /* 进入前，离开后 */
+        
+        .kaixin-enter,
+        .kaixin-leave-to {
+            background-color: #f00;
+            opacity: 0;
+            transform: translateX(300px);
+        }
+        /* 进入中，离开中 */
+        
+        .kaixin-enter-active,
+        .kaixin-leave-active {
+            transition: all 3s linear;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="state=!state">切换！</button>
+        <transition name="kaixin">
+            <div class="box" v-show="state"></div>
+        </transition>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                state: true
+            }
+        })
+    </script>
+</body>
+
+</html>

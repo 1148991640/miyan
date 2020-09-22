@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        商品单价：200元
+        <br> 商品数量：
+        <button @click="num--">－</button> {{num}}
+        <button @click="num++">＋</button>
+        <br> 商品总价： {{total.toFixed(2)}}元
+        <hr> {{person}}
+        <button @click="person.age++">增加年龄</button> {{str}}
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                num: 1,
+                total: 0,
+                person: {
+                    name: "二狗子",
+                    age: 20
+                },
+                str: "二狗子的年龄是：20"
+            },
+            watch: {
+                num(newval, oldval) {
+                    console.log(newval);
+                    console.log(oldval);
+                    this.total = newval * 200
+                },
+                person: {
+                    deep: true,
+                    immediate: true,
+                    handler(newval) {
+                        console.log('person发生了变化')
+                        console.log(newval)
+                        this.str = '二狗子的年龄是：' + newval.age
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

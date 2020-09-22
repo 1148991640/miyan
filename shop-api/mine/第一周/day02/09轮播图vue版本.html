@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="./vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .banner {
+            overflow: hidden;
+            position: relative;
+            width: 600px;
+            height: 350px;
+            border: 2px solid blue;
+            margin: 20px auto;
+        }
+        
+        .banner .bd {
+            width: 6000px;
+            position: relative;
+            height: 350px;
+        }
+        
+        .banner .bd li {
+            width: 600px;
+            float: left;
+            height: 350px;
+        }
+        
+        .banner .bd li img {
+            width: 600px;
+            height: 350px;
+            display: block;
+        }
+        
+        .banner .hd {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            text-align: center;
+            height: 20px;
+        }
+        
+        .banner .hd li {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: blue;
+            display: inline-block;
+            margin: 5px;
+        }
+        
+        .banner .hd .active {
+            background-color: #fff;
+        }
+        
+        .banner .btn {
+            text-decoration: none;
+            color: #fff;
+            text-align: center;
+            line-height: 70px;
+            position: absolute;
+            top: 40%;
+            width: 30px;
+            height: 70px;
+            background-color: #000;
+            opacity: .6;
+        }
+        
+        .banner .btn:hover {
+            opacity: 1;
+        }
+        
+        .banner .btn.left {
+            left: 0;
+        }
+        
+        .banner .btn.right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="banner" @mouseenter="stop" @mouseleave="start">
+            <ul class="bd" :style="'left:-'+(curIndex*600)+'px'">
+                <li v-for="(item,index) in list" :key="index">
+                    <img :src="item" alt="">
+                </li>
+            </ul>
+            <ul class="hd">
+                <li v-for="(item,index) in list" :key="index" @click="curIndex=index" :class="curIndex==index ?'active':''"></li>
+            </ul>
+            <a href="" @click.prevent="leftclick" class="btn left">&lt;</a>
+            <a href="" @click.prevent="rightclick" class="btn right">&gt;</a>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            list: [
+                'https://img10.360buyimg.com/pop/s1180x940_jfs/t1/146133/12/6830/97906/5f475c9aE82f3a7ad/7207d47073e35393.jpg.webp',
+                'https://img12.360buyimg.com/pop/s1180x940_jfs/t1/147269/3/6533/87749/5f439b92E9a88ada5/80510a0e6a02a8a6.jpg.webp',
+                'https://img30.360buyimg.com/da/s1180x940_jfs/t1/132379/4/8776/82892/5f4d525bE38682c94/c724b1ef4ced5b2f.jpg.webp',
+                'https://img11.360buyimg.com/da/s1180x940_jfs/t1/130370/13/8783/103541/5f4ca80fE94a2a421/492bc70b4495dd21.jpg.webp',
+                'https://img12.360buyimg.com/da/s1180x940_jfs/t1/115236/10/16940/81725/5f4d0c75E5ea22264/aa7f4cae79290b1b.jpg.webp'
+            ],
+            curIndex: 0,
+            timer: null
+        },
+        methods: {
+            start() {
+                this.timer = setInterval(() => {
+                    this.rightclick();
+                }, 2000)
+            },
+            stop() {
+                clearInterval(this.timer);
+            },
+            leftclick() {
+                if (this.curIndex == 0) {
+                    this.curIndex = this.list.length - 1
+                } else {
+                    this.curIndex--
+                }
+            },
+            rightclick() {
+                if (this.curIndex == (this.list.length - 1)) {
+                    this.curIndex = 0;
+                } else {
+                    this.curIndex++
+                }
+            }
+        },
+        created() {
+            this.start();
+        },
+        destroyed() {
+            this.stop();
+        }
+    })
+</script>
+
+</html>

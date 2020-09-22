@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{price1.toFixed(2)}}
+        <br> {{price2.toFixed(3)}}
+        <hr> {{price1 | tofix | haha}}
+        <br>{{price2 | tofix(5) | hehe}}
+        <br>{{price1 | tofix(1) | pix("$") }}
+    </div>
+    <script>
+        Vue.filter('tofix', function(val, n = 2) {
+            val = val * 1
+            if (isNaN(val)) {
+                throw new Error('传入不是数字，传入的值是' + val)
+            } else {
+                return val.toFixed(n)
+            }
+        })
+        Vue.filter('pix', function(val, str = "￥") {
+            return str + val
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                price1: 2342.345,
+                price2: 34535
+            },
+            filters: {
+                haha: function(val) {
+                    return '哈哈' + val
+                },
+                hehe: function(val) {
+                    return '呵呵' + val
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

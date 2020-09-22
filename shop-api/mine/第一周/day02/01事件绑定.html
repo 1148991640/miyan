@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="run">run</button>
+        <button @click="go('abc')">go</button>
+        <a href="http://www.baidu.com" @click="skip('天安门！',$event)">this is TianAnmen</a>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+                run(str) {
+                    console.log(str)
+                },
+                go(str) {
+                    console.log(str)
+                },
+                skip(str, event) {
+                    event.preventDefault();
+                    console.log(str)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

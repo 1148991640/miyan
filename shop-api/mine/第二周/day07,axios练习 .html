@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <form action="" enctype="multipart/form-data"></form>
+  </body>
+  <script>
+    let url1 = "http://122.51.249.55:3000/index.php/Api/Index/favourite";
+    let url2 = "http://122.51.249.55:3000/index.php/Api/User/reg";
+    console.log(axios);
+    // axios({
+    //   url: "请求地址",
+    //   method: "请求方式",
+    //   data: { post提交的参数 },
+    //   params: { get方式提交的参数 },
+    //   headers: { 请求头的配置 },
+    //   baseURL: "前缀地址",
+    //   timeout: "请求时长",
+    // }).then((res) => {
+    //   res是axios处理好的相应数据, res.data才是真正的服务器端返回的数据;
+    // });
+    // axios.get("请求地址", { 配置对象 }).then((res) => {
+    //   "...";
+    // });
+    // axios.get("请求地址?key=val&key2=val2").then((res) => {
+    //   "...";
+    // });
+    // axios.get("请求地址", { params: { key: val, key2: val2 } }).then((res) => {
+    //   "...";
+    // });
+    // axios
+    //   .get(url1)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   });
+
+    // axios.post("请求地址", { post提交的参数 }, { 配置对象 }).then((res) => {
+    //   "...";
+    // });
+    // axios
+    //   .post("请求地址", { key: val, key2: val2 }, { headers: {} })
+    //   .then((res) => {
+    //     "...";
+    //   });
+    // axios
+    //   .post(url2, {
+    //     usename: "15369018616",
+    //     password: "123456",
+    //     password2: "123456",
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   });
+
+    // 请求1 = axios.get("请求地址")
+    // 请求2 = axios.get("请求地址")
+    // axios.all([请求1,请求2]).then(res=>{res是一个数组！})
+    // let p1 = axios.get("http://122.51.249.55:3000/index.php/Api/Index/home");
+    // let p2 = axios.get(
+    //   "http://122.51.249.55:3000/index.php/Api/Index/favourite"
+    // );
+    // axios.all([p1, p2]).then((res) => {
+    //   console.log(res);
+    // });
+
+    //axios.create({配置对象})  //创建了一个axios实例！！！
+    // let $axios = axios.create({
+    //   baseURL: "基准前缀地址",
+    //   timeout: "请求时长",
+    // });
+    //创建出来的实例没有all和create方法！
+    let $axios = axios.create({
+      baseURL: "http://122.51.249.55:3000/index.php/Api",
+      timeout: 3000,
+    });
+    //配置拦截器
+    // 添加请求拦截器
+    $axios.interceptors.request.use(
+      function (config) {
+        console.log("在发送请求之前做些什么");
+        return config;
+      },
+      function (error) {
+        //对请求错误做些什么
+        return Promise.reject(error);
+      }
+    );
+    // 添加响应拦截器
+    $axios.interceptors.response.use(
+      function (response) {
+        console.log("对响应数据做点什么");
+        console.log(response);
+        return response.data.result;
+      },
+      function (error) {
+        // 对响应错误做点什么
+        return Promise.reject(error);
+      }
+    );
+
+    $axios.get("/Index/favourite").then((res) => {
+      console.log(res.data);
+    });
+    let p3 = $axios("/Index/home");
+    let p4 = $axios("Index/favourite");
+    axios.all([p3, p4]).then((res) => {
+      console.log(res);
+    });
+
+    // post解决参数提交的问题！可能出现！可能不出现！
+    let userinfo = {
+      username: 18164015208,
+      password: "admin123",
+      password2: "admin123",
+    };
+    //let str = '';
+    //for(let k in userinfo){str+=(k+userinfo[k]+"&")}
+    //console.log(str)
+    //$axios.post("/User/reg","username=18764081208&password=admin888&password2=admin888").then(res=>{console.log(res)})
+
+    //方式1：将提交数据的对象变成字符串的键值对！
+    // axios.post("地址","key=val&key2=val2").then(res=>{...})
+    let data = new URLSearchParams(); //序列化对象
+    for (let k in userinfo) {
+      data.append(k, userinfo[k]);
+    }
+    $axios.post("/User/reg", data).then((res) => {
+      console.log(res);
+    });
+
+    // 方式2：使用URLSearchParams对象，对数据进行处理！
+
+    // 脚手架里面使用很多！！！
+    // import qs from "qs"
+    // $axios.post("/Use/reg",qs.stringify(userinfo)).then(res=>{
+    //     console.log(res);
+    // })
+
+    // let url = "http://122.51.249.55:3000/index.php/Api/User/reg";
+    // let xhr = new XMLHttpRequest();
+    // xhr.open("POST", url);
+    // xhr.setRequestHeader("CONTENT-TYPE", "application/x-www-form-urlencoded");
+    // xhr.send("username=18764089208&password=admin888&password2=admin888")
+    // xhr.onload = function(){
+    //     console.log(xhr.response)
+    // }
+
+    // 看network!!!
+    //  请求地址， 状态码显示404 ，肯定是地址错误！
+    //  请求方式
+    //  请求参数：
+    // 参数是否正确
+    // 属性名是否正确，是否少了！
+    // 属性值是否正确
+    // 请求头类型： post
+    //发送JSON格式数据： setRequestHeader("Content-type","application/json; charset=utf-8");
+    //可以上传文件信息： setRequestHeader("Content-type","multipart/form-data; charset=utf-8");
+    //【最常见！！】发送表单格式数据：setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
+    //发送纯文本 setRequestHeader("Content-type", "text/plain; charset=utf-8");
+    //发送HTML  setRequestHeader("Content-type", "text/html; charset=utf-8");
+    //  看resoponse!!! 分析！！
+  </script>
+</html>

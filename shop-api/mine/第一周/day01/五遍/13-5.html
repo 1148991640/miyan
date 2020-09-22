@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        table {
+            border: 1px solid purple;
+            border-spacing: 0px;
+        }
+        
+        td {
+            width: 100px;
+            text-align: center;
+        }
+        
+        button {
+            width: 50px;
+            height: 30px;
+            background: purple;
+            color: #fff;
+            font: 16px '微软雅黑';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p style="color: purple;">标题：<input type="text" id="tit"></p>
+        <p style="color: purple;">内容：<input type="text" id="cot"></p>
+        <button @click="add">添加</button>
+        <hr>
+        <table border="1">
+            <tr>
+                <td>序号</td>
+                <td>标题</td>
+                <td>内容</td>
+                <td>操作</td>
+            </tr>
+            <tr v-for="(item,index) in arrlist" :key="index">
+                <td>{{index+1}}</td>
+                <td>{{item.tit}}</td>
+                <td>{{item.cot}}</td>
+                <td>
+                    <button @click="del(index)">删除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        // 页面一旦进入之后
+        // 就去判断本地存储list是否存在，
+        // 如果存在把它变成数组赋给arrlist，
+        // arrlist赋给了vue里面的arrlist,到vue的模板里面去渲染！
+        // 如果没有就是空数组     
+        let arrlist = [];
+        if (localStorage.getItem('list')) {
+            arrlist = JSON.parse(localStorage.getItem('list'))
+        }
+        new Vue({
+            el: "#app",
+            data: {
+                arrlist: arrlist // 赋给vue的arrlist!
+            },
+            methods: {
+                add() {
+                    // 获取输入框内容！
+                    let tit = document.getElementById("tit").value;
+                    let cot = document.getElementById("cot").value;
+                    let data = {
+                        // tit:tit,
+                        // cot:cot
+                        tit,
+                        cot // 缩写！
+                    }
+                    let list;
+                    // 判断本地存储中是否有list！
+                    if (localStorage.getItem("list")) {
+                        // 如果有，取出变成数组，将这一次的数据插入！
+                        list = localStorage.getItem('list');
+                        list = JSON.parse(list);
+                        list.push(data);
+                    } else {
+                        // 如果没有，生成一个数组，放入第一次存的数据！
+                        list = [data];
+                    }
+                    // 存入到本地存储中去！
+                    localStorage.setItem('list', JSON.stringify(list)) // 存起来！
+                        // 赋给data里面的arrlist 实现页面更新！
+                    this.arrlist = list;
+                    // 输入框置空！
+                    document.getElementById("tit").value = ''
+                    document.getElementById("cot").value = ''
+                },
+                del(i) {
+                    // 思路：
+                    // 取出list，变成数组，删除数组对应下标的元素，然后有放回去！
+                    // 还要删除arrlist里面的对应下标的元素！
+                    let list = localStorage.getItem('list'); // 取出
+                    list = JSON.parse(list); // 变成数组
+                    list.splice(i, 1) // 改变数组
+                    localStorage.setItem('list', JSON.stringify(list)) // 存回去！
+                    this.arrlist.splice(i, 1) // 页面也要删除！
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

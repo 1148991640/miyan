@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-for="item in list" :key="item.goods_id">
+            <a href="">
+                <img :src="item.goods_id | getImg" alt="">
+                <h3>{{item.goods_name}}</h3>
+            </a>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                list: []
+            },
+            created() {
+                let id = location.search.split("=")[1];
+                let ajax = new XMLHttpRequest();
+                ajax.open("GET", "http://122.51.249.55:3000/index.php/Api/Goods/goodsList?id=" + id);
+                ajax.send();
+                ajax.onload = () => {
+                    console.log(ajax)
+                    let data = JSON.parse(ajax.response);
+                    this.list = data.result.goods_list
+                }
+            },
+            filters: {
+                getImg(val, w = 200, h = 200) {
+                    return `http://122.51.249.55:3000/index.php/Api/Goods/goodsThumImages?goods_id=${val}&width=${w}&height=${h}`
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- <li>
+            <h3></h3>
+            <img src="" alt="">
+        </li> -->
+        </ul>
+    </div>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", 'http://122.51.249.55:3000/index.php/Api/Goods/goodsCategoryList')
+        xhr.send()
+        xhr.onload = function() {
+            let data = JSON.parse(xhr.response);
+            console.log(data.result)
+            let htmlstr = '';
+            data.result.forEach(val => {
+                htmlstr += `<li>
+                                <h3>${val.name}</h3>
+                                <img src="http://122.51.249.55:3000/${val.image}" alt="">
+                            </li>`
+            });
+            document.querySelector("ul").innerHTML = htmlstr
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08、生命周期</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <h2>{{msg}}</h2>
+        <ul>
+            <li v-for="(item,index) in list" :key="index">{{item}}</li>
+        </ul>
+        <hr> {{str}}
+        <button @click="say">啊哈哈</button>
+    </div>
+</body>
+<script>
+    let app = new Vue({
+        el: "#app",
+        data: {
+            msg: 11111,
+            list: [],
+            timer: null,
+            str: "很好！"
+        },
+        methods: {
+            say() {
+                alert(222222)
+                this.str += '可以的！'
+            }
+        },
+        beforeCreate() {
+            console.log("创建之前")
+            console.log(this.msg)
+            console.log(document.getElementById("app").innerHTML)
+            console.log(document.querySelectorAll("li"))
+        },
+        created() { // 重要
+            console.log("创建之后")
+            console.log(this.msg)
+            console.log(document.getElementById("app").innerHTML)
+            console.log(document.querySelectorAll("li"))
+            setTimeout(() => {
+                this.list = ['1.jpeg', '2.jpeg', '3.jpeg']
+            }, 3000);
+            this.timer = setInterval(() => {
+                this.msg += 10;
+            }, 1000);
+        },
+        beforeMount() {
+            console.log("挂载之前")
+            console.log(document.getElementById("app").innerHTML)
+            console.log(document.querySelectorAll("li"))
+        },
+        mounted() { // 重要
+            console.log("挂载之后")
+            console.log(document.getElementById("app").innerHTML)
+            console.log(document.querySelectorAll("li"))
+        },
+        beforeUpdate() {},
+        updated() { // 重要
+        },
+        beforeDestroy() { //重要 
+            console.log("消亡之前")
+        },
+        destroyed() { // 重要 
+            console.log("消亡之后")
+            clearInterval(this.timer);
+        }
+    })
+
+    console.log(app)
+
+    setTimeout(() => {
+        app.$destroy();
+    }, 5000);
+</script>
+
+</html>

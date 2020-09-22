@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50730
 File Encoding         : 65001
 
-Date: 2020-09-18 09:42:26
+Date: 2020-09-22 20:21:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,14 +25,15 @@ CREATE TABLE `banner` (
   `img` varchar(255) NOT NULL COMMENT '轮播图图片地址',
   `status` tinyint(1) NOT NULL COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='轮播图表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='轮播图表';
 
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
-INSERT INTO `banner` VALUES ('1', '轮播图1', '/uploads/banner/76744550-b51a-11ea-8f98-3b344c58e56b.jpg', '1');
+INSERT INTO `banner` VALUES ('1', '轮播图1', '/uploads/banner/795597a0-fa58-11ea-a62a-aff8ecef1bef.jpg', '1');
 INSERT INTO `banner` VALUES ('2', '轮播图2', '/uploads/banner/7cf04640-b51a-11ea-8f98-3b344c58e56b.jpg', '1');
-INSERT INTO `banner` VALUES ('3', '3', '/uploads/banner/21ebfe00-b51b-11ea-8f98-3b344c58e56b.jpg', '1');
+INSERT INTO `banner` VALUES ('3', '轮播图3', '/uploads/banner/21ebfe00-b51b-11ea-8f98-3b344c58e56b.jpg', '1');
+INSERT INTO `banner` VALUES ('4', '轮播图4', '/uploads/banner/8b58cc60-fa58-11ea-a62a-aff8ecef1bef.png', '1');
 
 -- ----------------------------
 -- Table structure for cart
@@ -67,7 +68,7 @@ CREATE TABLE `category` (
   `img` varchar(255) NOT NULL COMMENT '分类图片',
   `status` tinyint(1) unsigned NOT NULL COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品分类表';
 
 -- ----------------------------
 -- Records of category
@@ -75,16 +76,13 @@ CREATE TABLE `category` (
 INSERT INTO `category` VALUES ('1', '0', '家用电器', '', '1');
 INSERT INTO `category` VALUES ('2', '0', '手机通讯', '', '1');
 INSERT INTO `category` VALUES ('3', '0', '电脑办公', '', '1');
-INSERT INTO `category` VALUES ('4', '0', '家居', '', '1');
-INSERT INTO `category` VALUES ('5', '0', '服装', '', '1');
 INSERT INTO `category` VALUES ('7', '1', '电视', '/uploads/category/fc3abc50-6c2c-11ea-b86c-579aced212c2.jpg', '1');
 INSERT INTO `category` VALUES ('8', '1', '空调', '/uploads/category/354b31f0-6c2d-11ea-b86c-579aced212c2.jpg', '1');
 INSERT INTO `category` VALUES ('9', '1', '洗衣机', '/uploads/category/436e9470-6c2d-11ea-b86c-579aced212c2.jpg', '1');
 INSERT INTO `category` VALUES ('10', '2', '手机', '/uploads/category/fee7e580-6c2d-11ea-b86c-579aced212c2.png', '1');
 INSERT INTO `category` VALUES ('11', '3', '笔记本', '/uploads/category/ddb0b9f0-6de0-11ea-a8e1-0d680bf54839.jpg', '1');
-INSERT INTO `category` VALUES ('12', '0', 'qq头像', '/uploads/category/e10b7fb0-f682-11ea-ae71-7bbbc85550c7.png', '1');
-INSERT INTO `category` VALUES ('13', '0', '桌面壁纸', '/uploads/category/47d324f0-f683-11ea-ae71-7bbbc85550c7.jpg', '1');
-INSERT INTO `category` VALUES ('14', '0', '方法', '/uploads/category/424beb60-f71f-11ea-85af-81a428416e37.png', '1');
+INSERT INTO `category` VALUES ('15', '0', '生活用品', '/uploads/category/49bfea70-fc0d-11ea-a628-35ff2f71e512.png', '1');
+INSERT INTO `category` VALUES ('16', '15', '卫生纸', '/uploads/category/57309ec0-fc0d-11ea-a628-35ff2f71e512.jpg', '1');
 
 -- ----------------------------
 -- Table structure for goods
@@ -105,22 +103,15 @@ CREATE TABLE `goods` (
   `ishot` tinyint(1) NOT NULL COMMENT '是否热卖1是2不是',
   `status` tinyint(1) NOT NULL COMMENT '状态1启用2禁用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品表';
 
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('1', '2', '10', '小米10', '3999.00', '3999.00', '/uploads/fa5c2790-6c48-11ea-b894-9bd516f4e52e.jpg', '<p><br></p>', '10', '发发发', '2', '1', '1');
-INSERT INTO `goods` VALUES ('2', '3', '11', '联想小新', '4499.00', '4699.00', '/uploads/2747d670-6de1-11ea-a8e1-0d680bf54839.jpg', '<p><img src=\"https://img30.360buyimg.com/sku/jfs/t1/92075/21/15594/69153/5e7332afE99041ba5/6796969792546bcf.jpg\" style=\"max-width:100%;\"><br></p>', '3', '白色', '1', '0', '1');
-INSERT INTO `goods` VALUES ('3', '2', '10', '荣耀9X', '1299.00', '1399.00', '/uploads/d6a0eff0-70be-11ea-91a2-9395060d7390.jpg', '', '3', '白色', '1', '2', '1');
-INSERT INTO `goods` VALUES ('4', '2', '10', '华为matep30', '3999.00', '4999.00', '/uploads/fb704ec0-70be-11ea-91a2-9395060d7390.jpg', '', '3', '黑色', '2', '2', '1');
-INSERT INTO `goods` VALUES ('5', '3', '11', '华为MateBook', '4299.00', '4597.00', '/uploads/1faae7a0-70bf-11ea-91a2-9395060d7390.jpg', '', '3', '白色', '2', '1', '1');
-INSERT INTO `goods` VALUES ('6', '2', '10', '商品111', '100.00', '11.00', '/uploads/7c5dca90-bfec-11ea-8792-37d378a8b52a.webp', '<p><br></p>', '3', '白色', '0', '1', '1');
-INSERT INTO `goods` VALUES ('7', '2', '10', '手机哈哈', '100.00', '11.00', '/uploads/a6fa9ad0-bfec-11ea-8792-37d378a8b52a.webp', '<p><br></p>', '3', '白色', '1', '0', '1');
-INSERT INTO `goods` VALUES ('8', '2', '10', '开心手机', '111.00', '11.00', '/uploads/b6929bf0-bfec-11ea-8792-37d378a8b52a.webp', '<p><br></p>', '3', '白色', '1', '0', '1');
-INSERT INTO `goods` VALUES ('9', '2', '10', '哈哈哈', '1000.00', '10000.00', '/uploads/c4c037a0-bfec-11ea-8792-37d378a8b52a.webp', '<p><br></p>', '3', '白色,黑色', '0', '1', '1');
-INSERT INTO `goods` VALUES ('10', '2', '10', '哎呦哈哈', '100.00', '100.00', '/uploads/d62075a0-bfec-11ea-8792-37d378a8b52a.webp', '<p><br></p>', '3', '白色,黑色', '0', '0', '1');
-INSERT INTO `goods` VALUES ('11', '2', '10', '哎呦喂', '100.00', '10.00', '/uploads/e4e3c1a0-bfec-11ea-8792-37d378a8b52a.png', '<p><br></p>', '3', '白色,黑色', '0', '0', '1');
+INSERT INTO `goods` VALUES ('1', '1', '7', '电视10', '3999.00', '2222.00', '/uploads/fa5c2790-6c48-11ea-b894-9bd516f4e52e.jpg', '<p><br></p>', '9', '绿色', '2', '1', '1');
+INSERT INTO `goods` VALUES ('3', '1', '8', '空调9X', '5555.00', '5555.00', '/uploads/d6a0eff0-70be-11ea-91a2-9395060d7390.jpg', '<p><br></p>', '9', '蓝色', '1', '2', '1');
+INSERT INTO `goods` VALUES ('4', '2', '10', '手机30', '3999.00', '4999.00', '/uploads/fb704ec0-70be-11ea-91a2-9395060d7390.jpg', '', '9', '黑色', '2', '2', '1');
+INSERT INTO `goods` VALUES ('5', '3', '11', '笔记本55', '4299.00', '4597.00', '/uploads/1faae7a0-70bf-11ea-91a2-9395060d7390.jpg', '', '9', '黑色', '2', '1', '1');
 
 -- ----------------------------
 -- Table structure for member
@@ -141,8 +132,8 @@ CREATE TABLE `member` (
 -- ----------------------------
 -- Records of member
 -- ----------------------------
-INSERT INTO `member` VALUES ('2', '2be08210-70fa-11ea-9c17-a5b3f9b0d2ba', '18811112222', '小U', '', 'O6ImO', '1585403036849', '1');
-INSERT INTO `member` VALUES ('3', '83b04130-7283-11ea-8498-dd0ed7f822e5', '18811113333', '小明', '0589b48e8d3ba87b979c63d77562864b', 'iBGAr', '1585571976387', '1');
+INSERT INTO `member` VALUES ('2', '2be08210-70fa-11ea-9c17-a5b3f9b0d2ba', '18811112222', '小U', '7517681df84ea092349aaff40c23925e', 'c9DCu', '1585403036849', '1');
+INSERT INTO `member` VALUES ('3', '83b04130-7283-11ea-8498-dd0ed7f822e5', '18811113333', '小明', 'd06000aac4b3c99ac6a52517f293d176', '4AkD7', '1585571976387', '1');
 INSERT INTO `member` VALUES ('4', '7730a980-bd07-11ea-981e-8bad1149c4db', '17342065909', '中原一点红', '2c24e221965fff72687a9dfe413f409c', 'JJpNe', '1593765035032', '1');
 INSERT INTO `member` VALUES ('5', 'c6970c30-bd07-11ea-981e-8bad1149c4db', '17342065901', '中原一点红', 'c6c226f2f774727708dac762a331cc9a', 'HTtYA', '1593765168243', '1');
 INSERT INTO `member` VALUES ('6', 'cf74a3d0-bd07-11ea-981e-8bad1149c4db', '17342065911', '中原一点红', 'e6c45cc46c14ca7dc0c510e5d4a84533', 'YpNix', '1593765183117', '1');
@@ -177,7 +168,6 @@ INSERT INTO `menu` VALUES ('11', '8', '商品管理', ' ', '2', '/good', '1');
 INSERT INTO `menu` VALUES ('12', '8', '会员管理', ' ', '2', '/memb', '1');
 INSERT INTO `menu` VALUES ('14', '8', '轮播图管理', ' ', '2', '/bann', '1');
 INSERT INTO `menu` VALUES ('15', '8', '秒杀活动', ' ', '2', '/seck', '1');
-INSERT INTO `menu` VALUES ('16', '0', '111', '111', '1', '', '1');
 
 -- ----------------------------
 -- Table structure for role
@@ -196,8 +186,6 @@ CREATE TABLE `role` (
 -- ----------------------------
 INSERT INTO `role` VALUES ('6', '超级管理员', '1,2,3,7,8,9,10,11,12,14,15,16,1,2,3,7,8,9,10,11,12,14,15,16', '1');
 INSERT INTO `role` VALUES ('7', '普通管理员', '2,8,9,10,11,12,14,15,2,8,9,10,11,12,14,15', '1');
-INSERT INTO `role` VALUES ('8', '用户', '2,2', '1');
-INSERT INTO `role` VALUES ('9', '开发者', '1,2,3,7,8,9,10,11,12,14,15,1,2,3,7,8,9,10,11,12,14,15', '1');
 
 -- ----------------------------
 -- Table structure for seckill
@@ -213,12 +201,16 @@ CREATE TABLE `seckill` (
   `goodsid` int(11) NOT NULL COMMENT '商品编号',
   `status` tinyint(1) NOT NULL COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='限时秒杀活动表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='限时秒杀活动表';
 
 -- ----------------------------
 -- Records of seckill
 -- ----------------------------
-INSERT INTO `seckill` VALUES ('6', '活动', '1593760064278', '1594364864278', '2', '10', '4', '1');
+INSERT INTO `seckill` VALUES ('6', '挖速腾', '1595260800000', '1598371200000', '2', '10', '4', '1');
+INSERT INTO `seckill` VALUES ('7', '电视小米', '1601481600000', '1601568000000', '1', '7', '1', '1');
+INSERT INTO `seckill` VALUES ('11', '荣耀空调', '1578499200000', '1582214400000', '1', '7', '1', '1');
+INSERT INTO `seckill` VALUES ('12', '艾弗森', '1600185600000', '1602691200000', '2', '10', '4', '1');
+INSERT INTO `seckill` VALUES ('13', '阿萨德', '1600099200000', '1603296000000', '1', '8', '3', '1');
 
 -- ----------------------------
 -- Table structure for specs
@@ -234,8 +226,8 @@ CREATE TABLE `specs` (
 -- ----------------------------
 -- Records of specs
 -- ----------------------------
-INSERT INTO `specs` VALUES ('9', '2412424', '1');
-INSERT INTO `specs` VALUES ('10', '胜多负少', '1');
+INSERT INTO `specs` VALUES ('9', '颜色', '1');
+INSERT INTO `specs` VALUES ('10', '内存', '1');
 
 -- ----------------------------
 -- Table structure for specs_attr
@@ -246,14 +238,25 @@ CREATE TABLE `specs_attr` (
   `specsid` int(11) NOT NULL COMMENT '规格的specsid',
   `specsval` varchar(50) NOT NULL COMMENT '规格值',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品规格明细表';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品规格明细表';
 
 -- ----------------------------
 -- Records of specs_attr
 -- ----------------------------
-INSERT INTO `specs_attr` VALUES ('10', '9', '14124');
-INSERT INTO `specs_attr` VALUES ('12', '10', '发发发');
-INSERT INTO `specs_attr` VALUES ('13', '10', '沙雕');
+INSERT INTO `specs_attr` VALUES ('19', '9', '红色');
+INSERT INTO `specs_attr` VALUES ('20', '9', '黄色');
+INSERT INTO `specs_attr` VALUES ('21', '9', '蓝色');
+INSERT INTO `specs_attr` VALUES ('22', '9', '紫色');
+INSERT INTO `specs_attr` VALUES ('23', '9', '金色');
+INSERT INTO `specs_attr` VALUES ('24', '9', '黑色');
+INSERT INTO `specs_attr` VALUES ('25', '9', '绿色');
+INSERT INTO `specs_attr` VALUES ('26', '9', '橙色');
+INSERT INTO `specs_attr` VALUES ('27', '10', '32G');
+INSERT INTO `specs_attr` VALUES ('28', '10', '64G');
+INSERT INTO `specs_attr` VALUES ('29', '10', '128G');
+INSERT INTO `specs_attr` VALUES ('30', '10', '256G');
+INSERT INTO `specs_attr` VALUES ('31', '10', '512G');
+INSERT INTO `specs_attr` VALUES ('32', '10', '1T');
 
 -- ----------------------------
 -- Table structure for user
@@ -269,9 +272,11 @@ CREATE TABLE `user` (
   `status` tinyint(1) NOT NULL COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uid` (`uid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='后台管理员用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='后台管理员用户表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('15', 'a09be0c0-f761-11ea-9d09-add7f668695f', '6', '宋洪超', 'b50c2f424a2a8003c3f0620e1c512d25', 'a03ni', '1');
+INSERT INTO `user` VALUES ('16', '434cd620-fb3c-11ea-a9d4-83f98977b02a', '6', '宋大', '93cedd95dedba218f7a5678e2ee77e22', 'E3TPx', '1');
+INSERT INTO `user` VALUES ('17', '4e2441f0-fb3c-11ea-a9d4-83f98977b02a', '7', '宋宋', '331ac9e47e7db4ad28d6d4d064568ea9', 'ftNgK', '1');

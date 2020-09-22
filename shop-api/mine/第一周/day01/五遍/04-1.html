@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .tit span {
+            display: inline-block;
+            width: 120px;
+            line-height: 40px;
+            text-align: center;
+            background-color: blue;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        
+        .tit .active {
+            background-color: red;
+        }
+        
+        .content {
+            width: 200px;
+            padding: 40px;
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="tit">
+            <span :class="curIndex==1 ?'active':''">音乐</span>
+            <span :class="curIndex==2 ?'active':''">军事</span>
+            <span :class="curIndex==3 ?'active':''">娱乐</span>
+        </div>
+        <div>
+            <div class="content" v-show="curIndex==1">音乐的内容</div>
+            <div class="content" v-show="curIndex==2">军事的内容</div>
+            <div class="content" v-show="curIndex==3">娱乐的内容</div>
+        </div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                curIndex: 1
+            }
+        })
+
+        setInterval(() => {
+            if (vm.curIndex == 3) {
+                vm.curIndex = 1;
+            } else {
+                vm.curIndex++;
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>

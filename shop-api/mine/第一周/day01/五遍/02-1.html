@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .red {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <div>{{msg +'呵呵呵'}}</div>
+        <div>{{htmlstr}}</div>
+        <hr>
+        <div v-html="'haha'"></div>
+        <div v-html="1+1"></div>
+        <div v-html="10>20?'对':'错的'"></div>
+        <div v-html="msg"></div>
+        <div v-html="htmlstr"></div>
+        <hr>
+        <div v-text="msg"></div>
+        <div v-text="htmlstr"></div>
+        <!-- 文字正文 -->
+        <!-- <div class="cocntent">{{htmlstr2}}</div> -->
+        <div class="content" v-html="htmlstr2"></div>
+        <hr>
+        <!-- 属性绑定！让HTML标签原生的那些属性也能识别变量或者表达式！ -->
+        <a :href="link" :class="str">go!!!</a>
+        <img :src="img" :alt="msg" style="width: 200px;">
+        <h3 :id="'box'+msg">1111111111</h3>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                msg: "哈哈哈",
+                htmlstr: "<h3>我是一个文字的正文信息啊！</h3>",
+                htmlstr2: `
+            <div class="ql-editor" data-gramm="false" contenteditable="true" data-placeholder="请输入文章正文"><h3><a href="https://www.baidu.com/link?url=mG1hohCBNrt8SwdrOrLzixmZ4ft0ZJE83IzYl8bH6pm65Lha5fNURNZrAc3kl0iHst7vcPAUBmFAZzV9YPvMeK&amp;wd=&amp;eqid=b001e748000261f0000000035f4c7101" rel="noopener noreferrer" target="_blank" style="color: rgb(204, 0, 0);">Ueditor</a><a href="https://www.baidu.com/link?url=mG1hohCBNrt8SwdrOrLzixmZ4ft0ZJE83IzYl8bH6pm65Lha5fNURNZrAc3kl0iHst7vcPAUBmFAZzV9YPvMeK&amp;wd=&amp;eqid=b001e748000261f0000000035f4c7101" rel="noopener noreferrer" target="_blank">&nbsp;- 富文本编辑器</a></h3><p><span style="color: rgb(204, 0, 0);">UEditor</span>是由百度web前端研发部开发所见即所得富文本web编辑器，具有轻量，可定制，注重用户体验等特点。 主要特点： 轻量级：代码精简，加载迅速。 定制化： 全新的分...</p><p>软件类型：可视化HTML编辑...<span style="color: rgb(224, 224, 224);">|</span>授权协议：MIT<span style="color: rgb(224, 224, 224);">|</span>开发语言：JavaScript</p></div>
+            `,
+                str: "red",
+                link: "http:www.ujiuye.com",
+                img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598863314406&di=57e4a9e6c1109e2464e799dccb3cadf2&imgtype=0&src=http%3A%2F%2Fku.90sjimg.com%2Fback_pic%2F05%2F09%2F19%2F165982dbb5c503d.jpg"
+            }
+        })
+    </script>
+</body>
+
+</html>

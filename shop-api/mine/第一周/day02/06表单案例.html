@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        table {
+            border: 1px solid purple;
+            border-spacing: 0px;
+        }
+        
+        td {
+            width: 200px;
+            text-align: center;
+        }
+        
+        p,
+        input {
+            border-color: purple;
+            color: purple;
+        }
+        
+        button {
+            width: 50px;
+            height: 30px;
+            background: purple;
+            color: #fff;
+            font: 16px '微软雅黑';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>标题：<input type="text" v-model="forminfo.tit" id="tit"></p>
+        <p>内容：<input type="text" v-model="forminfo.cot" id="cot"></p>
+        <button @click="add">添加</button>
+        <button @click="save" style="width: 100px;">保存修改</button>
+        <hr>
+        <table border="1">
+            <tr>
+                <td>序号</td>
+                <td>标题</td>
+                <td>内容</td>
+                <td>操作</td>
+            </tr>
+            <tr v-for="(item,index) in arrlist" :key="index">
+                <td>{{index+1}}</td>
+                <td>{{item.tit}}</td>
+                <td>{{item.cot}}</td>
+                <td>
+                    <button @click="edit(index)">修改</button>
+                    <button @click="del(index)">删除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        let defaultItem = {
+            tit: "",
+            cot: ""
+        }
+        let app = new Vue({
+            el: "#app",
+            data: {
+                arrlist: [],
+                forminfo: {...defaultItem
+                },
+                id: ''
+            },
+            created() {
+                this.showlist();
+            },
+            methods: {
+                showlist() {
+                    //console.log("渲染列表")
+                    if (localStorage.getItem('list')) {
+                        this.arrlist = JSON.parse(localStorage.getItem('list'));
+                    }
+                },
+                add() {
+                    let list;
+                    if (localStorage.getItem('list')) {
+                        list = localStorage.getItem('list');
+                        list = JSON.parse(list);
+                        list.push(this.forminfo);
+                    } else {
+                        list = [list.forminfo];
+                    }
+                    if (this.forminfo.tit && this.forminfo.cot) {
+                        localStorage.setItem('list', JSON.stringify(list));
+                        this.showlist();
+                        this.forminfo = {...defaultItem
+                        };
+                    }
+                },
+                del(i) {
+                    let list = localStorage.getItem('list');
+                    list = JSON.parse(list);
+                    console.log(list)
+                    list.splice(i, 1);
+                    localStorage.setItem('list', JSON.stringify(list));
+                    this.showlist();
+                },
+                edit(n) {
+                    this.forminfo.tit = this.arrlist[n].tit;
+                    this.forminfo.cot = this.arrlist[n].cot;
+                    this.id = n;
+                    //console.log(this.id)
+                },
+                save() {
+                    this.arrlist[this.id].tit = this.forminfo.tit;
+                    this.arrlist[this.id].cot = this.forminfo.cot;
+                    let list = this.arrlist;
+                    //console.log(list)
+                    localStorage.setItem('list', JSON.stringify(list));
+                    this.showlist();
+                    this.forminfo = {...defaultItem
+                    };
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

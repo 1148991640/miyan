@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul v-if="state">
+            <li v-for="i in 5">11111</li>
+        </ul>
+        <p v-else>暂无数据！</p>
+        <h3>
+            订单状态：
+            <span v-if="status==1">待发货</span>
+            <span v-else-if="status==2">已发货</span>
+            <span v-else-if="status==3">待收货</span>
+            <span v-else-if="status==4">待评价</span>
+            <span v-else>状态异常</span>
+        </h3>
+        <hr>
+        <ul v-show="state">
+            <li v-for="i in 5">11111</li>
+        </ul>
+        <p v-show="!state">暂无数据！</p>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                state: true,
+                status: 1 // 1待发货、2已发货、3待收货、4待评价
+            }
+        })
+
+        setInterval(() => {
+            vm.state = !vm.state;
+            vm.status++;
+        }, 1000);
+    </script>
+</body>
+
+</html>

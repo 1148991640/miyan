@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .red {
+            background-color: pink;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="app">
+            <h3 style="background-color: red;color:#fff">1111111111</h3>
+            <h3 :style="stylestr">222222222</h3>
+            <h2 :style="{backgroundColor:aa,fontSize:bb,color:cc}">33333333</h2>
+            <h2 :style="[mm,nn]">4444444444</h2>
+            <hr>
+            <div :class="{box:yy,red:zz}"></div>
+            <div :class="[gg,hh]"></div>
+        </div>
+    </div>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                stylestr: 'background-color: blue;color:#fff',
+                aa: 'orange',
+                bb: '30px',
+                cc: '#fff',
+                mm: {
+                    backgroundColor: "red",
+                    color: "#fff"
+                },
+                nn: {
+                    width: "300px",
+                    height: "300px"
+                },
+                yy: true,
+                zz: false,
+                gg: 'box',
+                hh: 'red'
+            }
+        })
+    </script>
+</body>
+
+</html>
