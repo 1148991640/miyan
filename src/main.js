@@ -7,19 +7,17 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import store from "./store";
 
-
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 
-
 // 注册过滤器
-import filterObj from "./filters"
+import filterObj from "./filters";
 for (let k in filterObj) {
-  Vue.filter(k, filterObj[k])
+  Vue.filter(k, filterObj[k]);
 }
 
 // 给JS里面使用！
-Vue.prototype.$host = "http://localhost:3030"
+Vue.prototype.$host = "http://localhost:3030";
 
 /* eslint-disable no-new */
 new Vue({

@@ -215,7 +215,6 @@ export default {
           // 如果验证通过！
           let res;
           // 提交FormData类型！
-          console.log(this.forminfo);
           let fd = new FormData();
           for (let k in this.forminfo) {
             fd.append(k, this.forminfo[k]);
@@ -231,7 +230,6 @@ export default {
             this.info.isShow = false;
             this.get_goods_list(); // 再次获取列表，让仓库里面的数据是最新的！
             this.cancel();
-            console.log(this.goodslist);
           } else {
             this.$message.error(res.msg);
           }

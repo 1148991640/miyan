@@ -1,7 +1,9 @@
 import { getUser, getTotal, Login } from "@/request/user";
 import { Message } from "element-ui";
 import router from "@/router";
-let userinfo = localStorage.getItem("userinfo") ? JSON.parse(localStorage.getItem("userinfo")) : {};
+let userinfo = localStorage.getItem("userinfo")
+  ? JSON.parse(localStorage.getItem("userinfo"))
+  : {};
 export default {
   namespaced: true,
   state: {
@@ -36,7 +38,6 @@ export default {
     SET_USERINFO(state, data) {
       // 存入本地存储是为了实现持久化！
       localStorage.setItem("userinfo", JSON.stringify(data));
-      console.log(localStorage.getItem("userinfo"));
       // 存入vuex是为了各组件方便直接拿取数据
       state.userinfo = data;
     },
@@ -76,6 +77,10 @@ export default {
       } else {
         Message.error(res.msg);
       }
+    },
+    quit({ commit }) {
+      commit("QUIT");
+      commit("tagsview/DEL_ALL", null, { root: true });
     }
   }
 };

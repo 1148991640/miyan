@@ -86,7 +86,6 @@ export default {
       set_size: "goods/set_size",
     }),
     edit(val) {
-      console.log(this.goodslist);
       this.$emit("edit", { ...val });
     },
     async del(id) {

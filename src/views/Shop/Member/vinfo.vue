@@ -12,7 +12,7 @@
         <el-input v-model="forminfo.phone" placeholder="请输入手机号"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="forminfo.password" placeholder="请输入密码"></el-input>
+        <el-input v-model="forminfo.password" :placeholder="info.isAdd?'请输入密码':'留空表示不修改'"></el-input>
       </el-form-item>
       <el-form-item label="状态">
         <el-switch v-model="forminfo.status" :active-value="1" :inactive-value="2"></el-switch>
@@ -63,6 +63,7 @@ export default {
     }),
 
     setinfo(val) {
+      val.password = "";
       defaultItem = { ...val };
       this.forminfo = { ...val };
     },
@@ -79,7 +80,6 @@ export default {
             this.$message.success(res.msg);
             this.info.isShow = false;
             this.get_member_list(); // 重新获取角色列表！
-            console.log(this.forminfo);
             this.cancel();
           } else {
             this.$message.error(res.msg);

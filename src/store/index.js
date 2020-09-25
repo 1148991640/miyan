@@ -11,6 +11,7 @@ import goods from "./modules/goods";
 import member from "./modules/member";
 import banner from "./modules/banner";
 import seck from "./modules/seck";
+import tagsview from "./modules/tagsview";
 
 Vue.use(Vuex);
 
@@ -21,7 +22,18 @@ let store = new Vuex.Store({
       state.iscollapse = !state.iscollapse;
     }
   },
-  modules: { menu, role, user, category, specs, goods, member, seck, banner }
+  modules: {
+    menu,
+    role,
+    user,
+    category,
+    specs,
+    goods,
+    member,
+    seck,
+    banner,
+    tagsview
+  }
 });
 
 export default store;

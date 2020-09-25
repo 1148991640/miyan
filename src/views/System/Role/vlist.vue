@@ -32,10 +32,6 @@ export default {
     }),
   },
   mounted() {
-    this.$nextTick(() => {
-      console.log("123");
-      console.log(this.rolelist);
-    });
     if (!this.rolelist.length) {
       this.get_role_list();
     }
